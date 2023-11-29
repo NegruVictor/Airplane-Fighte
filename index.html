@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title> Airplane fighter </title><title>Connect Four</title>
+        <link rel="stylesheet" href="./style.css">  
+    </head>
+    <style>
+        body {
+            background-image: url('https://www.publicdomainpictures.net/pictures/10000/nahled/clouds-in-sky-background-8712873072697HGG.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+    <body>
+        <div class="title">
+            <h1 style="text-align: center;"> Airplane fighter game </h1>
+        </div>
+        <div id="time" style="text-align: center;">
+            <span class="digit" id="min">00</span>
+            <span class="txt">:</span>
+            <span class="digit" id="sec">00</span>
+            <button class="btn" id="start">Start</button>
+            <button class="btn" id="reset">Reset</button>
+        </div>
+        <br>
+        <div style="text-align: center;">
+            <div id="score">Score: 0</div>
+            <div id="timerScore">Timer score: 0</div>
+        </div>
+        <div id="game_board" class="container" style="text-align: center;">
+            <canvas id="airplaneCanvas" width="600" height="400" style="background-color: white;" ></canvas>
+        </div>
+    </body>
+    <script src="inst.js"></script>
+</html>

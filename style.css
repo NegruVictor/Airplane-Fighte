@@ -1,0 +1,57 @@
+.title{
+  text-align: center;
+  width: 80%;
+  background-color: rgb(40, 183, 45);  
+  margin: auto;
+  box-shadow: 3px 3px 10px;
+}
+
+.digit {
+  font-size: 25px;
+  color: aliceblue;
+}
+.txt {
+  font-size: 25px;
+  color: #542ad3;
+}
+
+.btn {
+  width: 50px;
+  padding: 2px 2px;
+  margin: 0px 1px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.15s;
+  color: white;
+  font-weight: 250;
+}
+#start {
+  background-color: #009779;
+}
+#reset {
+  background-color: #c91400;
+}
+
+#score{
+  text-align: center;
+  float: left;
+  margin-left: 50%;
+  color: aliceblue;
+}
+#timerScore{
+  float: left;
+  text-align: center;
+  margin-left: 50%;
+  color: aliceblue;
+}
+.container{
+  width:100px;
+  height:10vh;
+  margin:5rem auto;
+  display: grid;
+  justify-content: center;
+  }
