@@ -17,6 +17,17 @@ let context = canvas.getContext("2d");
 let animationFrameId;
 let fallingObjects = [];
 
+// Constant variables
+const TEN = 10;
+const TIMER_INTERVAL = 10;
+const TIMER_MILLISECONDS = 99;
+const TIMER_SECONDS = 9;
+const TIMER_MINUTE = 59;
+const FALLING_OBJECT_INTERVAL = 500;
+const AIRPLANE_TIP_OFFSET = 2;
+const AIRPLANE_BOTTOM_OFFSET = 5;
+const OFFSET_X_GAME_OVER_TEXT = 100;
+
 // Airplane properties
 let airplane = {
   x: 250,
@@ -43,7 +54,7 @@ airplaneImage.src = 'airplane.png';
 // Event listeners
 buttonStart.onclick = function () {
   clearInterval(Interval);
-  Interval = setInterval(startTimer, 10);
+  Interval = setInterval(startTimer, TIMER_INTERVAL);
   update();
   startGeneratingObjects();
   buttonStart.disabled = true;
@@ -59,33 +70,33 @@ window.addEventListener("keydown", function (event) {
 
 // Timer functions
 function startTimer() {
-  tens++;
-  if (tens > 99) {
-    seconds++;
+  ++tens;
+  if (tens > TIMER_MILLISECONDS) {
+    ++seconds;
     updateTimerDisplay();
     tens = 0;
   }
-  if (seconds > 9) {
+  if (seconds > TIMER_SECONDS) {
     updateTimerDisplay();
   }
-  if (seconds > 59) {
-    minute++;
+  if (seconds > TIMER_MINUTE) {
+    ++minute;
     updateTimerDisplay();
   }
 }
 
 function updateTimerDisplay() {
-  appendSeconds.innerHTML = seconds < 10 ? "0" + seconds : seconds;
-  appendMin.innerHTML = minute < 10 ? "0" + minute : minute;
+  appendSeconds.innerHTML = seconds < TIMER_INTERVAL ? "0" + seconds : seconds;
+  appendMin.innerHTML = minute < TIMER_INTERVAL ? "0" + minute : minute;
 }
 
 // Game functions
 function drawAirplane() {
   context.save();
   context.beginPath();
-  context.moveTo(airplane.x + 10, airplane.y + airplane.height - 10);
-  context.lineTo(airplane.x + airplane.width / 2, airplane.y + 5);
-  context.lineTo(airplane.x + airplane.width - 10, airplane.y + airplane.height - 10);
+  context.moveTo(airplane.x + TEN, airplane.y + airplane.height - TEN);
+  context.lineTo(airplane.x + airplane.width / AIRPLANE_TIP_OFFSET, airplane.y + AIRPLANE_BOTTOM_OFFSET);
+  context.lineTo(airplane.x + airplane.width - TEN, airplane.y + airplane.height - TEN);
   context.closePath();
   context.clip();
   context.drawImage(airplaneImage, airplane.x, airplane.y, airplane.width, airplane.height);
@@ -116,7 +127,7 @@ function update() {
     fallingObjects[i].y += fallingObject.speed;
     if (fallingObjects[i].y > canvas.height) {
       fallingObjects.splice(i, 1);
-      obstaclesPassed++;
+      ++obstaclesPassed;
     }
   }
 
@@ -142,7 +153,7 @@ function generateFallingObject() {
 }
 
 function startGeneratingObjects() {
-  intervalID = setInterval(generateFallingObject, 500);
+  intervalID = setInterval(generateFallingObject, FALLING_OBJECT_INTERVAL);
 }
 
 function stopGeneratingObjects() {
@@ -151,17 +162,23 @@ function stopGeneratingObjects() {
 
 // Collision detection function
 function checkRectangleCollision(airplane, object) {
-  let airplaneX = (airplane.width - 20) + airplane.x - 90;
-  let airplaneY = airplane.y + airplane.height - 20;
-  let airplaneWidth = airplane.width - 10;
-  let airplaneHeight = airplane.height - 10;
+  const AIRPLANE_OFFSET_X = 20;
+  const AIRPLANE_OFFSET_Y = 20;
+  const AIRPLANE_MARGIN_X = 90;
+  const AIRPLANE_MARGIN_Y = 10;
+  const OBJECT_MARGIN = 30;
+
+  let airplaneX = (airplane.width - AIRPLANE_OFFSET_X) + airplane.x - AIRPLANE_MARGIN_X;
+  let airplaneY = airplane.y + airplane.height - AIRPLANE_OFFSET_Y;
+  let airplaneWidth = airplane.width - AIRPLANE_MARGIN_Y;
+  let airplaneHeight = airplane.height - AIRPLANE_MARGIN_Y;
   let objectX = object.x;
   let objectY = object.y;
   let objectWidth = fallingObject.width;
   let objectHeight = fallingObject.height;
 
   return (
-    airplaneX < objectX + objectWidth - 30 &&
+    airplaneX < objectX + objectWidth - OBJECT_MARGIN &&
     airplaneX + airplaneWidth > objectX &&
     airplaneY < objectY + objectHeight &&
     airplaneY + airplaneHeight > objectY
@@ -192,5 +209,5 @@ function gameOver() {
   stopGeneratingObjects();
   context.font = "30px Arial";
   context.fillStyle = "red";
-  context.fillText("Game Over", canvas.width / 2 - 100, canvas.height / 2);
+  context.fillText("Game Over", canvas.width / 2 - OFFSET_X_GAME_OVER_TEXT , canvas.height / 2);
 }
